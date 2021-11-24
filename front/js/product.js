@@ -31,7 +31,6 @@ fetch('http://localhost:3000/api/products/' + id)
            document.getElementById('colors').append(option)
          });
 
-
          //ajouter au panier
         let btn = document.getElementById('addToCart')
 
