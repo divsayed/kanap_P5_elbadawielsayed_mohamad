@@ -3,7 +3,7 @@ fetch('http://localhost:3000/api/products')
 	.then(respense => respense.json())
 	.then(donnee => {
 		//console.log(donnee)
-		donnee.forEach(Display => {
+		donnee.map(Display => { 
 			//console.log(Display);
 			let section = document.getElementById('items');
 			let a = document.createElement('a');
@@ -28,4 +28,4 @@ fetch('http://localhost:3000/api/products')
 			section.append(a);
 		});
 	})
-	.catch(Error => alert("Erreur est survenu"));
+	.catch(Error => alert("Erreur est survenu")); 
