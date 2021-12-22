@@ -1,6 +1,7 @@
 let recupPanier = JSON.parse(localStorage.getItem("article"));
 //console.log(recupPanier)
 
+// boucle localStorage afin de récupérer les données de l'élément ciblé.
 recupPanier.forEach(item => {
     let article = document.createElement('article')
     article.setAttribute('class','cart__item' )
@@ -34,7 +35,7 @@ recupPanier.forEach(item => {
     let priceProduct = document.createElement('p')   
     priceProduct.textContent = item.price +' €' 
     
-    //<div class="cart__item__content"> 2em div enfant avec son 2em enfant enfants
+    //<div class="cart__item__content"> 2em div enfant avec son 2em enfant 
     let settingProduct = document.createElement('div') 
     settingProduct.setAttribute('class', 'cart__item__content__settings') 
     // ses enfants   
@@ -73,7 +74,7 @@ recupPanier.forEach(item => {
     //localStorage.getItem(recupPanier) 
     //console.log(recupPanier)
     
-});
+})
 
    // Fonction qui calcule et affiche (produits + prix)
 function totalsArticle(){
@@ -89,9 +90,10 @@ function totalsArticle(){
     panier.forEach(item => {
         sumQuantity += item.quantity
         sumTotal += item.quantity * item.price
-        totalPrice.textContent = sumTotal
-        totalQuantity.textContent = sumQuantity
     })
+
+    totalPrice.textContent = sumTotal
+    totalQuantity.textContent = sumQuantity
    
 }
 totalsArticle() 
@@ -152,8 +154,7 @@ let errorFirstName = document.querySelector('#firstNameErrorMsg');
 let regexName = /^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i; // Expression régulière
 var firstNameValidator = false
 
-firstName.addEventListener('input', (e) => {
-    e.preventDefault();          // // empêchera la soumission du formulaire (le comportement par défaut)
+firstName.addEventListener('input', () => {
   if(!regexName.test(firstName.value)  || firstName.value == ""){ // si la correspandance est faux
     errorFirstName.textContent =  "Renseignez un prénom pour valider."  
     firstNameValidator = true
@@ -167,8 +168,7 @@ let lastName = document.querySelector('#lastName')
 let lastNameErrorMsg = document.querySelector('#lastNameErrorMsg')
 var lastNameValidator = false
 
-lastName.addEventListener('input', (e) =>{
-    e.preventDefault();
+lastName.addEventListener('input', () =>{
     if(!regexName.test(lastName.value) || lastName.value == ""){
        lastNameErrorMsg.textContent = "Renseignez un nom pour valider."
        lastNameValidator = true
@@ -183,8 +183,7 @@ let addressErrorMsg = document.querySelector('#addressErrorMsg')
 var addressValidator = false
 let regexAdresse = /^[a-zA-Z0-9\s,'-]*$/;
 
-address.addEventListener('input', (e) =>{
-    e.preventDefault();
+address.addEventListener('input', () =>{
     if(!regexAdresse.test(address.value) || address.value ==""){
        addressErrorMsg.textContent = "Renseignez un Adresse pour valider."
        addressValidator = true
@@ -199,8 +198,7 @@ let cityErrorMsg = document.querySelector('#cityErrorMsg')
 var cityValidator = false
 let regexCity = /^[a-zA-Z',.\s-]{1,25}$/;
 
-city.addEventListener('input', (e) => {
-    e.preventDefault()
+city.addEventListener('input', () => {
     if(!regexCity.test(city.value) || city.value == ""){
        cityErrorMsg.textContent = "Renseignez une ville pour valider"
        cityValidator = true
@@ -215,8 +213,7 @@ let emailErrorMsg = document.querySelector('#emailErrorMsg')
 var emailValidator = false
 let regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-email.addEventListener('input', (e) => {
-    e.preventDefault()
+email.addEventListener('input', () => {
     if(!regexEmail.test(email.value) || email.value == ""){
        emailErrorMsg.textContent = "Renseignez une Email pour valider"
        emailValidator = true
@@ -226,41 +223,41 @@ email.addEventListener('input', (e) => {
     }
 })
 
-// évènement au clic du bouton commander
+// évènement au clic du bouton commander et vérification des inputs du formulaire
  document.querySelector('#order').addEventListener('click', () =>{
      if(!firstNameValidator && !lastNameValidator && !addressValidator && !cityValidator && !emailValidator){
        let contact = {
-           firstName : firstName.value,
-           lastName : lastName.value,
-           address : address.value,
-           city : city.value,
-           email : email.value 
+           'firstName' : firstName.value,
+           'lastName' : lastName.value,
+           'address' : address.value,
+           'city' : city.value,
+           'email' : email.value 
        }  
           console.log(contact)
        
           
-   // boucle localStorage afin de récupérer les id et les intégrer dans tableau product 
+   // boucle localStorage afin de récupérer les id et les intégrer dans tableau products 
           
    let panier = JSON.parse(localStorage.getItem('article')) 
-   let product = [] 
+   let products = [] 
      panier.forEach(el =>{
-         product.push(el.id)
-         console.log(product)
+         products.push(el.id)
      })
-     
-     let orderPage = {contact,product}
+     //variable contenant les infos de la commande
+     let order = {contact,products}
      // je fais appel à l'api order pour envoyer mes tableaux
-     fetch('http://localhost:3000/api/products/order',{
-         'method':'POST',
-         'header' :{
-             "Content-Type": "application/json"
-           },
-           'body' : JSON.stringify(orderPage) 
-       })
-       .then(res => res.json())
-       .then(data => {
-           console.log (data.orderId)
-            //window.location.href =`confirmation.html?Id=${data.orderId}`;
+     fetch("http://localhost:3000/api/products/order", {
+            "method": "post",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "body": JSON.stringify(order)
+        })
+       .then(response => response.json())
+       .then(data => {           
+           localStorage.clear()
+           //redirection vers page confirmation 
+           window.location.href =`confirmation.html?orderId=${data.orderId}`;
        })
        .catch(err => alert("Erreur est survenu")) 
    }
@@ -268,7 +265,6 @@ email.addEventListener('input', (e) => {
 
 document.querySelector('form').addEventListener('submit', (e) => {
    e.preventDefault();
-   //localStorage.clear()
-
 })
+ 
 

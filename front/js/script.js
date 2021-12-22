@@ -5,6 +5,7 @@ fetch('http://localhost:3000/api/products')
 		//console.log(donnee)
 		donnee.map(Display => { 
 			//console.log(Display);
+			// recupèrer la section items dans laquelle vont apparaître les articles
 			let section = document.getElementById('items');
 			let a = document.createElement('a');
 			let article = document.createElement('article');
@@ -23,6 +24,7 @@ fetch('http://localhost:3000/api/products')
 			p.setAttribute('class', 'productDescription');
 			p.textContent = Display.description;
 
+            // affichage
 			article.append(image, h3, p);
 			a.append(article);
 			section.append(a);

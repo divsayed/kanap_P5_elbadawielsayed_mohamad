@@ -1,12 +1,15 @@
+// recupère l'id produit dans l'url
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id')
 console.log(id)
 
-
+//envoi l'id à l'api pour recupère les données du produit pour l'afficher 
 fetch('http://localhost:3000/api/products/' + id)
 	.then(response => response.json())
 	.then(donnees => {
 		//console.log(donnees)
+		//modif titre page web avec nom du produit
+		document.querySelector("title").textContent = donnees.name;
 		let image = document.createElement('img')
 		image.setAttribute('src', donnees.imageUrl)
 		image.setAttribute('alt', donnees.altTxt)
@@ -49,7 +52,7 @@ fetch('http://localhost:3000/api/products/' + id)
        alert("Vous devez selectionner un Nombre entre 1 et 100");
        return;
       }
-			// condition si le local storage contient un produit
+			// condition si le local storage contient déjà un produit on augmente la quantité. 
 			if (panier) {       
 				const result = panier.find(el => el.id == product.id && el.color == product.color);
 				if (result) {
@@ -69,6 +72,7 @@ fetch('http://localhost:3000/api/products/' + id)
 				panier = [];
 				panier.push(product);
 				localStorage.setItem("article", JSON.stringify(panier));
+				// remplace le panier par le nouveau panier 
 				//console.log(panier);
 			}
 
