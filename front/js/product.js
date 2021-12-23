@@ -6,6 +6,7 @@ console.log(id)
 //envoi l'id à l'api pour recupère les données du produit pour l'afficher 
 fetch('http://localhost:3000/api/products/' + id)
 	.then(response => response.json())
+	
 	.then(donnees => {
 		//console.log(donnees)
 		//modif titre page web avec nom du produit
@@ -32,7 +33,7 @@ fetch('http://localhost:3000/api/products/' + id)
 
 		btn.addEventListener("click", () => {
 			let panier = JSON.parse(localStorage.getItem("article")) != null ? JSON.parse(localStorage.getItem("article")) : [];
-			console.log(panier)
+			//console.log(panier)
 
 			let product = {
 				id: donnees._id,
@@ -43,6 +44,7 @@ fetch('http://localhost:3000/api/products/' + id)
 				name: donnees.name,
 				price: donnees.price
 			}
+			//console.log(product)
       	// condition de selection des couleur et des quantité.
       if (product.color == 0) {
         alert("Vous devez selectionner une couleur");
@@ -59,13 +61,13 @@ fetch('http://localhost:3000/api/products/' + id)
 					let newQuantite = Number(product.quantity) + Number(result.quantity);
 					result.quantity = newQuantite;
 					localStorage.setItem("article", JSON.stringify(panier));
-					console.log(panier);
+					//console.log(panier);
 
 					//Si le produit commandé n'est pas dans le panier
 				} else {
 					panier.push(product);
 					localStorage.setItem("article", JSON.stringify(panier));
-					console.log(panier);
+					//console.log(panier);
 				}
 				//Si le panier est vide
 			} else {

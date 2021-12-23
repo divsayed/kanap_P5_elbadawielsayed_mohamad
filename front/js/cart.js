@@ -233,7 +233,7 @@ document.querySelector('#order').addEventListener('click', () => {
             'city': city.value,
             'email': email.value
         }
-        console.log(contact)
+        //console.log(contact)
 
 
         // boucle localStorage afin de récupérer les id et les intégrer dans tableau products 
@@ -248,6 +248,7 @@ document.querySelector('#order').addEventListener('click', () => {
             contact,
             products
         }
+        //console.log(contact)
         // je fais appel à l'api order pour envoyer mes tableaux
         fetch("http://localhost:3000/api/products/order", {
                 "method": "post",
