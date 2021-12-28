@@ -226,7 +226,8 @@ email.addEventListener('input', () => {
 
 // évènement au clic du bouton commander et vérification des inputs du formulaire
 document.querySelector('#order').addEventListener('click', () => {
-    if (!firstNameValidator && !lastNameValidator && !addressValidator && !cityValidator && !emailValidator) {
+    let panier = JSON.parse(localStorage.getItem('article'))
+    if (!firstNameValidator && !lastNameValidator && !addressValidator && !cityValidator && !emailValidator && panier.length != 0) {
         let contact = {
             'firstName': firstName.value,
             'lastName': lastName.value,
@@ -239,7 +240,6 @@ document.querySelector('#order').addEventListener('click', () => {
 
         // boucle localStorage afin de récupérer les id et les intégrer dans tableau products 
 
-        let panier = JSON.parse(localStorage.getItem('article'))
         let products = []
         panier.forEach(el => {
             products.push(el.id)
@@ -269,5 +269,5 @@ document.querySelector('#order').addEventListener('click', () => {
 })
 
 document.querySelector('form').addEventListener('submit', (e) => {
-    e.preventDefault(); 
+    e.preventDefault();  
 })     
