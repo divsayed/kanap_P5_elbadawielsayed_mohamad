@@ -152,7 +152,7 @@ document.querySelectorAll('.itemQuantity').forEach(item => {
 let firstName = document.querySelector('#firstName')
 let errorFirstName = document.querySelector('#firstNameErrorMsg');
 let regexName = /^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i; // Expression régulière
-var firstNameValidator = false
+var firstNameValidator = true
 
 firstName.addEventListener('input', () => {
     if (!regexName.test(firstName.value) || firstName.value == "") { // si la correspandance est faux
@@ -166,7 +166,7 @@ firstName.addEventListener('input', () => {
 //Nom
 let lastName = document.querySelector('#lastName')
 let lastNameErrorMsg = document.querySelector('#lastNameErrorMsg')
-var lastNameValidator = false
+var lastNameValidator = true
 
 lastName.addEventListener('input', () => {
     if (!regexName.test(lastName.value) || lastName.value == "") {
@@ -180,7 +180,7 @@ lastName.addEventListener('input', () => {
 //Adresse
 let address = document.querySelector('#address')
 let addressErrorMsg = document.querySelector('#addressErrorMsg')
-var addressValidator = false
+var addressValidator = true
 let regexAdresse = /^[a-zA-Z0-9\s,'-]*$/;
 
 address.addEventListener('input', () => {
@@ -195,7 +195,7 @@ address.addEventListener('input', () => {
 //Ville
 let city = document.querySelector('#city')
 let cityErrorMsg = document.querySelector('#cityErrorMsg')
-var cityValidator = false
+var cityValidator = true
 let regexCity = /^[a-zA-Z',.\s-]{1,25}$/;
 
 city.addEventListener('input', () => {
@@ -210,7 +210,7 @@ city.addEventListener('input', () => {
 // Email
 let email = document.querySelector('#email')
 let emailErrorMsg = document.querySelector('#emailErrorMsg')
-var emailValidator = false
+var emailValidator = true
 let regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
 email.addEventListener('input', () => {
@@ -222,6 +222,7 @@ email.addEventListener('input', () => {
         emailValidator = false
     }
 })
+
 
 // évènement au clic du bouton commander et vérification des inputs du formulaire
 document.querySelector('#order').addEventListener('click', () => {
@@ -248,7 +249,7 @@ document.querySelector('#order').addEventListener('click', () => {
             contact,
             products
         }
-        //console.log(contact)
+        //console.log(order)
         // je fais appel à l'api order pour envoyer mes tableaux
         fetch("http://localhost:3000/api/products/order", {
                 "method": "post",
@@ -268,5 +269,5 @@ document.querySelector('#order').addEventListener('click', () => {
 })
 
 document.querySelector('form').addEventListener('submit', (e) => {
-    e.preventDefault();
-})
+    e.preventDefault(); 
+})     
