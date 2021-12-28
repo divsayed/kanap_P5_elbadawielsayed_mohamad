@@ -237,7 +237,6 @@ document.querySelector('#order').addEventListener('click', () => {
         }
         //console.log(contact)
 
-
         // boucle localStorage afin de récupérer les id et les intégrer dans tableau products 
 
         let products = []
@@ -262,12 +261,13 @@ document.querySelector('#order').addEventListener('click', () => {
             .then(data => {
                 localStorage.clear()
                 //redirection vers page confirmation 
-                window.location.href = `confirmation.html?orderId=${data.orderId}`;
+               // window.location.href = `confirmation.html?orderId=${data.orderId}`;
             })
             .catch(err => alert("Erreur est survenu"))
     }
 })
 
 document.querySelector('form').addEventListener('submit', (e) => {
-    e.preventDefault();  
+    e.preventDefault(); 
+    console.log(e) 
 })     
