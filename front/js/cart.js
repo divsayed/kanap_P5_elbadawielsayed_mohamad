@@ -261,7 +261,7 @@ document.querySelector('#order').addEventListener('click', () => {
             .then(data => {
                 localStorage.clear()
                 //redirection vers page confirmation 
-               // window.location.href = `confirmation.html?orderId=${data.orderId}`;
+                window.location.href = `confirmation.html?orderId=${data.orderId}`;
             })
             .catch(err => alert("Erreur est survenu"))
     }
